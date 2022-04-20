@@ -18,7 +18,7 @@ exit 3
 fi
 token=""
 rand=""
-ft=$(echo "$2" | md5sum | cut -d ' ' -f1)
+ft=$(cat "$2" | md5sum | cut -d ' ' -f1)
 if [ -f "$1_$ft" ]; then
 echo "Existing Session Found"
 line_counter=$(sed '1q;d' "$1_$ft")
