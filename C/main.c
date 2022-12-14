@@ -8,7 +8,6 @@
 #define HEADER_SIZE 46
 
 static pthread_mutex_t LISTLOCK = PTHREAD_MUTEX_INITIALIZER;
-static pthread_mutex_t TRAP = PTHREAD_MUTEX_INITIALIZER;
 static list_t* GLOBAL_LIST = NULL;
 static volatile sig_atomic_t EXIT = 0;
 static size_t LINE = 0;
@@ -69,9 +68,7 @@ void* istance(void* input){
     curl_easy_setopt(req, CURLOPT_WRITEFUNCTION, data_callback);
     curl_easy_setopt(req, CURLOPT_WRITEDATA, (void *)&chunk);
     for(;;){
-    pthread_mutex_lock(&TRAP);
     if (EXIT != 0){
-        pthread_mutex_unlock(&TRAP);
         return NULL;
     }
     pthread_mutex_unlock(&TRAP);
